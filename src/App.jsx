@@ -50,12 +50,31 @@ function App() {
   }
   return (
     <>
-      {/* <Myheader title={subject.title} desc={subject.desc} /> */}
-      <header>
-        <h1 className="logo">{subject.title}</h1>
+      <Myheader
+        title={subject.title}
+        desc={subject.desc}
+        onChangeMode={() => {
+          setMode("welcome");
+        }}
+      />
+      {/* <header>
+        <h1
+          className="logo"
+          onClick={() => {
+            setMode("welcome");
+          }}
+        >
+          {subject.title}
+        </h1>
         <p>{subject.desc}</p>
-      </header>
-      <Nav data={content} />
+      </header> */}
+      <Nav
+        data={content}
+        onChangeMode={_id => {
+          setMode("read");
+          setId(_id);
+        }}
+      />
       <MyArticle title={_title} desc={_desc} />
     </>
   );
