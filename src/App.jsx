@@ -5,6 +5,9 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
+  console.log("App render");
+  const [id, setId] = useState(1);
+  const [mode, setMode] = useState("welcome");
   const [subject, setSubject] = useState({
     title: "프론트엔드 개발자",
     desc: "기본언어인 html, css, javascript부터 학습합니다.",
@@ -27,14 +30,33 @@ function App() {
       desc: "상태 변화에 따른 자연스럽고 동적인 화면 효과 구현",
     },
   ]);
+
+  const welcome = { title: "welcome", desc: "Welcome to react" };
+  let _title = null;
+  let _desc = null;
+
+  if (mode === "welcome") {
+    _title = welcome.title;
+    _desc = welcome.desc;
+  } else if (mode === "read") {
+    const selected = content.find(c => c.id === id);
+    console.log(selected);
+    if (selected) {
+      // _title = content[0].title;
+      // _desc = content[0].desc;
+      _title = selected.title;
+      _desc = selected.desc;
+    }
+  }
   return (
     <>
-      <Myheader title={subject.title} desc={subject.desc} />
-      <Nav />
-      <MyArticle
-        title="UI/UX 개발"
-        desc="사용자 경험을 고려한 직관적이고 반응성 높은 화면 구현"
-      />
+      {/* <Myheader title={subject.title} desc={subject.desc} /> */}
+      <header>
+        <h1 className="logo">{subject.title}</h1>
+        <p>{subject.desc}</p>
+      </header>
+      <Nav data={content} />
+      <MyArticle title={_title} desc={_desc} />
     </>
   );
 }

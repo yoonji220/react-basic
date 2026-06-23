@@ -1,4 +1,5 @@
 function Myheader({ title, desc }) {
+  console.log("Myheader render");
   return (
     <header>
       <h1 className="logo">{title}</h1>
