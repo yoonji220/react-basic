@@ -67,6 +67,8 @@ function App() {
           });
           setContent(_contents);
           setMaxid(newId);
+          setId(newId);
+          setMode("read");
         }}
       />
     );
