@@ -2,7 +2,7 @@ import Myheader from "./components/Myheader";
 import Nav from "./components/Nav";
 import MyArticle from "./components/MyArticle";
 import "./App.css";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Controls from "./components/controls";
 import CreateArticle from "./components/createArticle";
 
@@ -71,6 +71,12 @@ function App() {
       />
     );
   }
+
+  const handleChangeMode = useCallback(_id => {
+    setMode("read");
+    setId(_id);
+  }, []);
+
   return (
     <>
       <Myheader
@@ -91,13 +97,7 @@ function App() {
         </h1>
         <p>{subject.desc}</p>
       </header> */}
-      <Nav
-        data={content}
-        onChangeMode={_id => {
-          setMode("read");
-          setId(_id);
-        }}
-      />
+      <Nav data={content} onChangeMode={handleChangeMode} />
       {_article}
       <hr />
       <Controls
