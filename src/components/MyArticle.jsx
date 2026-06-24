@@ -1,10 +1,15 @@
-function MyArticle({ title, desc, onChangeMode, onDelete }) {
+function MyArticle({ title, desc, difficulty, onChangeMode, onDelete }) {
   console.log("MyArticle render");
   return (
     <section>
       <article>
         <h2>{title}</h2>
         <p>{desc}</p>
+        {difficulty !== undefined && (
+          <p>
+            <strong>난이도: {difficulty}</strong>
+          </p>
+        )}
       </article>
       {/* <button
         onClick={() => {
