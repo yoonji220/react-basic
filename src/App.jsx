@@ -1,10 +1,11 @@
+import "./App.css";
 import Myheader from "./components/Myheader";
 import Nav from "./components/Nav";
 import MyArticle from "./components/MyArticle";
-import "./App.css";
 import { useState, useCallback } from "react";
 import Controls from "./components/controls";
 import CreateArticle from "./components/createArticle";
+import UpdateArticle from "./components/UpdateArticle";
 
 function App() {
   console.log("App render");
@@ -14,7 +15,6 @@ function App() {
     title: "프론트엔드 개발자",
     desc: "기본언어인 html, css, javascript부터 학습합니다.",
   });
-
   const [content, setContent] = useState([
     {
       id: 1,
@@ -35,6 +35,7 @@ function App() {
   const [maxId, setMaxid] = useState(3);
 
   const welcome = { title: "welcome", desc: "Welcome to react" };
+
   let _title = null;
   let _desc = null;
   let _article = null;
@@ -47,19 +48,24 @@ function App() {
     const selected = content.find(c => c.id === id);
     console.log(selected);
     if (selected) {
-      // _title = content[0].title;
-      // _desc = content[0].desc;
       _title = selected.title;
       _desc = selected.desc;
     }
-    _article = <MyArticle title={_title} desc={_desc} />;
+    _article = (
+      <MyArticle
+        title={_title}
+        desc={_desc}
+        onChangeMode={() => {
+          setMode("update");
+        }}
+      />
+    );
   } else if (mode === "create") {
     _article = (
       <CreateArticle
         onSubmit={(_title, _desc) => {
           const newId = maxId + 1;
-          // console.log(_title, _desc);
-          // content.push({ id: newId, title: _title, desc: _desc },) // 절대 하면 안되는거
+
           let _contents = content.concat({
             id: newId,
             title: _title,
@@ -68,6 +74,29 @@ function App() {
           setContent(_contents);
           setMaxid(newId);
           setId(newId);
+          setMode("read");
+        }}
+      />
+    );
+  } else if (mode === "update") {
+    const selected = content.find(c => c.id === id);
+    if (!selected) return null;
+
+    _article = (
+      <UpdateArticle
+        title={selected.title}
+        desc={selected.desc}
+        onSubmit={(_title, _desc) => {
+          let _content = content.map(c =>
+            c.id === id
+              ? {
+                  ...c,
+                  title: _title,
+                  desc: _desc,
+                }
+              : c,
+          );
+          setContent(_content);
           setMode("read");
         }}
       />
@@ -110,4 +139,5 @@ function App() {
     </>
   );
 }
+
 export default App;
