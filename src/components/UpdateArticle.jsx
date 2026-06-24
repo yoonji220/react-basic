@@ -2,14 +2,29 @@ import { useState } from "react";
 
 function UpdateArticle({ title, desc, onSubmit }) {
   console.log("UpdateArticle render");
-  const [newTitle, setNewTitle] = useState(title);
-  const [newDesc, setNewDesc] = useState(desc);
-  const handleTitleChange = e => {
-    setNewTitle(e.target.value);
+  const [content, setContent] = useState({
+    title: title,
+    desc: desc,
+  });
+  // const [newTitle, setNewTitle] = useState(title);
+  // const [newDesc, setNewDesc] = useState(desc);
+  // const handleTitleChange = e => {
+  //   setNewTitle(e.target.value);
+  // };
+  // const handleDescChange = e => {
+  //   setNewDesc(e.target.value);
+  // };
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setContent(prev => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
   };
-  const handleDescChange = e => {
-    setNewDesc(e.target.value);
-  };
+
   return (
     <>
       <h2>Update Article</h2>
@@ -17,7 +32,8 @@ function UpdateArticle({ title, desc, onSubmit }) {
         action=""
         onSubmit={e => {
           e.preventDefault();
-          onSubmit(e.target.title.value, e.target.desc.value);
+          // onSubmit(e.target.title.value, e.target.desc.value);
+          onSubmit(content.title, content.desc);
         }}
       >
         <div>
@@ -26,13 +42,18 @@ function UpdateArticle({ title, desc, onSubmit }) {
             type="text"
             name="title"
             id="title"
-            value={newTitle}
-            onChange={handleTitleChange}
+            value={content.title}
+            onChange={handleChange}
           />
         </div>
         <div>
           <label htmlFor="desc">desc</label>
-          <textarea name="desc" id="desc" value={newDesc} onChange={handleDescChange}></textarea>
+          <textarea
+            name="desc"
+            id="desc"
+            value={content.desc}
+            onChange={handleChange}
+          ></textarea>
         </div>
         <button>Submit</button>
       </form>
