@@ -1,9 +1,12 @@
+import ArticleForm from "./ArticleForm";
+
 function CreateArticle({ onSubmit }) {
   console.log("CreateArticle render");
   return (
     <>
       <h2>Create Article</h2>
-      <form
+      <ArticleForm onSubmit={onSubmit} />
+      {/* <form
         action=""
         onSubmit={e => {
           e.preventDefault();
@@ -28,7 +31,7 @@ function CreateArticle({ onSubmit }) {
           />
         </div>
         <button>Submit</button>
-      </form>
+      </form> */}
     </>
   );
 }
