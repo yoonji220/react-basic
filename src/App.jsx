@@ -144,7 +144,7 @@ function App() {
         </h1>
         <p>{subject.desc}</p>
       </header> */}
-      <Nav data={content} onChangeMode={handleChangeMode} />
+      <Nav data={content} id={id} onChangeMode={handleChangeMode} />
       {renderArticle()}
       <hr />
       <Controls

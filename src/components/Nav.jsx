@@ -1,27 +1,16 @@
+//Nav 컴포넌트
 import { memo } from "react";
 
-const Nav = memo(function Nav({ data, onChangeMode }) {
+const Nav = memo(function Nav({ id, data, onChangeMode }) {
   console.log("Nav render");
   const lists = data.map(d => (
-    //   <li key={d.id}>
-    //     <a
-    //       href=""
-    //       onClick={e => {
-    //         e.preventDefault();
-    //         onChangeMode(d.id);
-    //       }}
-    //     >
-    //       {d.title}
-    //     </a>
-    //   </li>
-    // ));
-    <li key={d.id}>
+    <li key={d.id} className="nav-item">
       <a
         href={`/${d.id}`}
+        className={`nav-link ${d.id === id ? "active" : ""}`}
         // data-id={d.id}
         onClick={e => {
           // console.log(e.target.dataset.id);
-
           e.preventDefault();
           onChangeMode(d.id);
         }}
@@ -30,9 +19,11 @@ const Nav = memo(function Nav({ data, onChangeMode }) {
       </a>
     </li>
   ));
+  //list에 출력할 코드 생성
+
   return (
     <nav>
-      <ul>{lists}</ul>
+      <ul className="nav flex-column nav-pills">{lists}</ul>
     </nav>
   );
 });
