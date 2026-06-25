@@ -1,9 +1,8 @@
-// import { useState } from "react";
 import ArticleForm from "./ArticleForm";
 
 function UpdateArticle({ title, desc, difficulty, onSubmit }) {
   console.log("UpdateArticle render");
-  
+
   return (
     <>
       <h2>Update Article</h2>
